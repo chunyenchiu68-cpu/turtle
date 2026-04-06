@@ -2,19 +2,19 @@ import streamlit as st
 import google.generativeai as genai
 import openpyxl
 import io
-import re
 import json
 
-# 設定頁面
-st.set_page_config(page_title="丸龜採購單自動填寫", layout="wide")
-
-# 從 Streamlit Secrets 讀取密鑰
-if "GEMINI_API_KEY" in st.secrets:
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-else:
-    st.error("請在 Streamlit Secrets 中設定 GEMINI_API_KEY")
+# --- 關鍵修正區：確保讀取 Secrets ---
+try:
+    # 優先讀取 Streamlit Secrets
+    api_key = st.secrets["GEMINI_API_KEY"]
+    genai.configure(api_key=api_key)
+except Exception as e:
+    st.error(f"❌ 找不到 API Key，請在 Secrets 設定。錯誤: {e}")
+    st.stop() # 停止執行後續程式
 
 model = genai.GenerativeModel('gemini-1.5-flash')
+# --- 後面接原本的程式碼 ---
 
 st.title("🍣 丸龜採購單自動化助手")
 st.write("利用 AI 視覺辨識技術，自動填寫箱數，不再受亂碼困擾。")
