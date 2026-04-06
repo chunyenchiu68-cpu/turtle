@@ -9,6 +9,14 @@ try:
     # 優先讀取 Streamlit Secrets
     api_key = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key)
+    # 在 app.py 中加入這段來檢查
+if st.button("🔍 檢查我能用的模型清單"):
+    try:
+        available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+        st.write("你的 API Key 可用的模型有：")
+        st.json(available_models)
+    except Exception as e:
+        st.error(f"無法獲取模型清單: {e}")
 except Exception as e:
     st.error(f"❌ 找不到 API Key，請在 Secrets 設定。錯誤: {e}")
     st.stop() # 停止執行後續程式
