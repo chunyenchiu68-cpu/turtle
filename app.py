@@ -13,7 +13,7 @@ except Exception as e:
     st.error(f"❌ 找不到 API Key，請在 Secrets 設定。錯誤: {e}")
     st.stop() # 停止執行後續程式
 
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash-latest')
 # --- 後面接原本的程式碼 ---
 
 st.title("🍣 丸龜採購單自動化助手")
