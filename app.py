@@ -66,7 +66,7 @@ if st.button("🚀 開始全自動視覺辨識"):
 
             # --- 4. 處理每一份 PDF ---
             # 這裡使用最穩定的模型名稱，若檢查清單顯示不同，請自行修改此處
-            model = genai.GenerativeModel('models/gemini-1.5-flash')
+            model = genai.GenerativeModel('models/gemini-2.5-flash')
             
             progress_bar = st.progress(0)
             for idx, pdf_file in enumerate(uploaded_pdfs):
